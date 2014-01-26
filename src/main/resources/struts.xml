@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<!-- 文件上传的大小限制 -->
+	<constant name="struts.multipart.maxSize" value="1024000000" />
+	
+	<!-- 通用Action包 -->
+	<package name="Common" extends="struts-default" namespace="/Common">
+		
+		<action name="fileGet" class="com.anlong.fileserver.action.FileGetAction" method="fileGet">
+			<result type="stream" name="success">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="contentLength">${fileSize}</param>
+				<param name="bufferSize">4096</param>
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		
+	</package>
+	
+</struts>    

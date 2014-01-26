@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+  <listener>
+    <listener-class>com.anlong.fileserver.socket.InitSystemService</listener-class>
+  </listener>
+
+	<!-- 上传文件 -->
+	<servlet>
+		<description>上传文件</description>
+		<display-name>上传文件</display-name>
+		<servlet-name>UploadServlet</servlet-name>
+		<servlet-class>
+			com.anlong.fileserver.httppost.UploadServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>UploadServlet</servlet-name>
+		<url-pattern>/UploadServlet</url-pattern>
+	</servlet-mapping>
+		<!-- 文件下载 -->
+	<servlet>
+		<description>文件下载</description>
+		<display-name>文件下载</display-name>
+		<servlet-name>DownloadServlet</servlet-name>
+		<servlet-class>
+			com.anlong.fileserver.httppost.DownloadServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DownloadServlet</servlet-name>
+		<url-pattern>/DownloadServlet</url-pattern>
+	</servlet-mapping>
+	
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	
+		<!-- struts2请求过滤器 -->
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>
+			org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+		<!-- struts2配置文件的路径，默认是在classpath下面 -->
+		<init-param>
+			<param-name>config</param-name>
+			<param-value>struts-default.xml,struts-plugin.xml,struts.xml</param-value>
+		</init-param>
+	</filter>
+	<!-- Action过滤器 -->
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>*.action</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+
+</web-app>
