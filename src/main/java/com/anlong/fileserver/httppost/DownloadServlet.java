@@ -11,12 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.anlong.fileserver.common.DownloadUtils;
 import com.anlong.fileserver.mongodb.MongoFileIndex;
 
 /**
  * @Title: DownloadServlet.java 
- * @Package com.anlong.msg.fileserver
+ * @Package com.anlong.fileserver.fileserver
  * @company ShenZhen anlong Technology CO.,LTD.   
  * @author lixl   
  * @date 2013-9-10 下午5:00:14 
@@ -48,7 +47,7 @@ public class DownloadServlet extends HttpServlet {
 		//mongo索引是否存在 
 		if(MongoFileIndex.isExistFile(md5)){
 			//校验文件系统是否存在   
-			String iopath = DownloadUtils.getFileIOPath(md5);
+			String iopath = DownloadUtils.getFileDownloadIOPath(md5);
 			String relativePath = MongoFileIndex.getFilePath(md5);
 			if(new File(iopath).exists()){
 				//IP+相对路径   全部是/ 

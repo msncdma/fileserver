@@ -7,9 +7,10 @@ import com.anlong.fileserver.common.StaticValue;
 import com.anlong.fileserver.common.SystemGlobals;
 import com.anlong.fileserver.socket.FileSendInfo;
 
+
 /**
  * @Title: InitImageFileServer.java
- * @Package com.anlong.msg.test.socketupload
+ * @Package com.anlong.fileserver.test.socketupload
  * @company ShenZhen anlong Technology CO.,LTD.
  * @author lixl
  * @date 2014年1月17日 下午12:00:53

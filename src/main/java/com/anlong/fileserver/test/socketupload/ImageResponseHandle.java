@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import com.anlong.fileserver.common.StaticValue;
 
 
+
 public class ImageResponseHandle {
 	private static Logger logger = Logger.getLogger(ImageResponseHandle.class);
 	// 定时器

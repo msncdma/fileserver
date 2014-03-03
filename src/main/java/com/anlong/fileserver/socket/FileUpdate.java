@@ -7,7 +7,7 @@ import org.apache.mina.core.session.IoSession;
 
 /**
  * @Title: UpdateService.java 
- * @Package com.anlong.msg.socket
+ * @Package com.anlong.fileserver.socket
  * @company ShenZhen anlong Technology CO.,LTD.   
  * @author lixl   
  * @date 2013-10-23 下午5:31:41 

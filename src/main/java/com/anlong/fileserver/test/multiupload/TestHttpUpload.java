@@ -1,4 +1,4 @@
-package com.anlong.fileserver.test.httpload;
+package com.anlong.fileserver.test.multiupload;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,7 +39,7 @@ public class TestHttpUpload {
 	public static void main(String[] args) {
 		//文件稍大1.12M就报错 413
 		//D:\\TEMP\\CentralServer_130605winbat_ok.jar    30
-		File f = new File("D:\\tmp\\33.bmp");
+		File f = new File("D:\\TEMP\\20140115test-desktop.jpg");
 		System.out.println("源文件剩余空间："+f.getFreeSpace()/1024/1024/1024);
 		System.out.println("源文件总空间："+f.getTotalSpace());
 		transferFile("11", f);
@@ -63,7 +63,7 @@ public class TestHttpUpload {
 			//http://121.15.130.218:8684/
 			//http://192.168.0.221:8780/
 			//http://192.168.0.228:8780/
-			PostMethod method = new PostMethod("http://121.15.130.218:8684/msgfileserver/UploadServlet");
+			PostMethod method = new PostMethod("http://192.168.2.189:8684/msgfileserver/UploadServlet");
 
 			try {
 				// 设置字符串参数

@@ -37,6 +37,21 @@
 		<url-pattern>/DownloadServlet</url-pattern>
 	</servlet-mapping>
 	
+		<!-- 大文件分割多文件上传 -->
+	<servlet>
+		<description>大文件分段上传</description>
+		<display-name>大文件上传</display-name>
+		<servlet-name>MultiUploadServlet</servlet-name>
+		<servlet-class>
+			com.anlong.fileserver.multihttppost.MultiUploadServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MultiUploadServlet</servlet-name>
+		<url-pattern>/MultiUploadServlet</url-pattern>
+	</servlet-mapping>
+	
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>

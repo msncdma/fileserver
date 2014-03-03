@@ -1,4 +1,4 @@
-package com.anlong.fileserver.common;
+package com.anlong.fileserver.httppost;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import com.anlong.fileserver.common.SystemGlobals;
 import com.anlong.fileserver.mongodb.MongoFileIndex;
 
 public class DownloadUtils {
@@ -52,7 +53,7 @@ public class DownloadUtils {
      * @param md5
      * @return 
      */
-    public static String getFileIOPath(String md5){
+    public static String getFileDownloadIOPath(String md5){
     	String downloadPath = MongoFileIndex.getFilePath(md5);
     	String prefix = SystemGlobals.getValue("anlong.im.file.catalog.prefix");
     	int index1 = downloadPath.lastIndexOf(prefix);

@@ -1,4 +1,4 @@
-package com.anlong.fileserver.common;
+package com.anlong.fileserver.httppost;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -8,11 +8,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.RandomAccessFile;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,7 +27,9 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
+import com.anlong.fileserver.common.SystemGlobals;
 import com.anlong.fileserver.mongodb.MongoFileIndex;
+import com.anlong.fileserver.multihttppost.MultiUploadUtils;
 import com.opensymphony.oscache.base.Config;
 import com.opensymphony.oscache.base.NeedsRefreshException;
 import com.opensymphony.oscache.general.GeneralCacheAdministrator;
@@ -35,7 +39,7 @@ import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 /**
  * @Title: UploadUtils.java 
- * @Package com.anlong.msg.common
+ * @Package com.anlong.fileserver.common
  * @company ShenZhen anlong Technology CO.,LTD.   
  * @author lixl   
  * @date 2014年1月8日 上午11:09:51 
@@ -112,7 +116,7 @@ public class UploadUtils {
 	 * @param sizeNeed
 	 * @return 
 	 */
-	public static String getFileIOPath(int type,String id,int sizeNeed){
+	public static String getFileUploadIOPath(int type,String id,int sizeNeed){
 		return getBasePATH(sizeNeed)+getFileSeparator()+getFileRelativePath(type, id);
 	}
 	
@@ -220,7 +224,7 @@ public class UploadUtils {
 		} catch (NeedsRefreshException e) {
 			try {
 				//如果内存中不存在  从文件系统中载入到内存
-				String ioPath = DownloadUtils.getFileIOPath(key);
+				String ioPath = DownloadUtils.getFileDownloadIOPath(key);
 				File file = new File(ioPath);
 				o = FileUtils.readFileToByteArray(file);
 				cache.putInCache(key, o);
@@ -377,7 +381,7 @@ public class UploadUtils {
 	public static void doHttpUpload(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		request.setCharacterEncoding("UTF-8");
-		//response.setCharacterEncoding("UTF-8");
+		((ServletRequest) response).setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
@@ -426,7 +430,7 @@ public class UploadUtils {
 		if(size0 <= UploadUtils.getFileByteSizeLimit()){
 			/** 校验mongo索引 */
 			if(MongoFileIndex.isExistFile(md5Request)){
-				String ioPath = DownloadUtils.getFileIOPath(md5Request);
+				String ioPath = DownloadUtils.getFileDownloadIOPath(md5Request);
 				String relativePath = MongoFileIndex.getFilePath(md5Request);
 				/** 校验物理磁盘中是否存在  */
 				if(new File(ioPath).exists()){
@@ -442,7 +446,7 @@ public class UploadUtils {
 			}else{    
 				//文件不存在，开始上传文件
 				int type = Integer.parseInt(typeStr);
-				
+				//?????????????????????????????????优化循环
 				for (FileItem item : items) {
 					if(!item.isFormField()){
 						
@@ -459,7 +463,7 @@ public class UploadUtils {
 						/** 执行上传 */
 						httpUpdateFile( data, type, md5, size0);
 						//WRITE LOG
-						String iopath = UploadUtils.getFileIOPath(type, md5,size0);
+						String iopath = UploadUtils.getFileUploadIOPath(type, md5,size0);
 						String relativepath = UploadUtils.getFileDownloadPath(iopath);
 						
 						StringBuilder message = new StringBuilder();
@@ -506,17 +510,45 @@ public class UploadUtils {
 			UploadUtils.putInCache(md5, data);
 		}
 		//按规则生成的 路径
-		String iopath = UploadUtils.getFileIOPath(type, md5,size);
+		String iopath = UploadUtils.getFileUploadIOPath(type, md5,size);
 		
-		FileUtils.writeByteArrayToFile(new File(iopath), data);
+		//FileUtils.writeByteArrayToFile(new File(iopath), data);
+		filePersistence(iopath, data);
+		
 		/** 10 ,11,20,21  类型同时写入缩略图   图片定长最大200，等比倒缩放，类型 61 为app图标 */
 		if(type == 10 || type == 11 || type == 12 || type == 20 || type == 21){
-			String outFile = UploadUtils.getFileIOPath((type*10), md5,size);
+			String outFile = UploadUtils.getFileUploadIOPath((type*10), md5,size);
 			compressPic(new File(iopath), new File(outFile));
 		}
 		/** 保存文件索引到montodb */
 		String relativepath = UploadUtils.getFileDownloadPath(iopath);
 		MongoFileIndex.addFileIndex(md5, "", relativepath,"");
+		
+	}
+	
+	/**
+	 * 底层写入文件的具体实现
+	 * 1.apache writeByteArrayToFile  2.RandomAccessFile
+	 * @param iopath
+	 * @param data
+	 * @throws IOException 
+	 */
+	public static void filePersistence(String iopath,byte[] data) throws IOException{
+		switch (Integer.valueOf(SystemGlobals.getValue("anlong.im.fileupload.persistence.implement.type"))) {
+		case 1:
+			FileUtils.writeByteArrayToFile(new File(iopath), data);
+			break;
+			
+		case 2:
+			logger.info("============*== filePersistence Start RandomAccessFile ==*============");
+			RandomAccessFile raf = MultiUploadUtils.createRandomAccessFile(iopath);
+			raf.seek(0);
+			raf.write(data);
+			MultiUploadUtils.closeRandomAccessFileIo(raf);
+			break;
+		default:
+			break;
+		}
 		
 	}
 	

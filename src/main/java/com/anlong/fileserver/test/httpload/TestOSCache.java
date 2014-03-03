@@ -2,12 +2,12 @@ package com.anlong.fileserver.test.httpload;
 
 import java.io.IOException;
 
-import com.anlong.fileserver.common.UploadUtils;
+import com.anlong.fileserver.httppost.UploadUtils;
 import com.opensymphony.oscache.base.NeedsRefreshException;
 
 /**
  * @Title: TestOSCache.java 
- * @Package com.anlong.msg.test
+ * @Package com.anlong.fileserver.test
  * @company ShenZhen anlong Technology CO.,LTD.   
  * @author lixl   
  * @date 2014年1月8日 上午11:19:34 

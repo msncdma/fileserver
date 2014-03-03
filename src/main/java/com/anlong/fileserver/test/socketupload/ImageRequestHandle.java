@@ -19,9 +19,10 @@ import com.anlong.fileserver.socket.FileSendInfo;
 
 
 
+
 /**
  * @Title: ImageRequestHandle.java 
- * @Package com.anlong.msg.test.socketupload
+ * @Package com.anlong.fileserver.test.socketupload
  * @company ShenZhen anlong Technology CO.,LTD.   
  * @author lixl   
  * @date 2014年1月20日 上午11:35:21 

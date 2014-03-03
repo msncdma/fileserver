@@ -12,13 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 
-import com.anlong.fileserver.common.DownloadUtils;
-import com.anlong.fileserver.common.UploadUtils;
 import com.anlong.fileserver.mongodb.MongoFileIndex;
 
 /**
  * @Title: UploadServlet.java 
- * @Package com.anlong.msg.fileserver
+ * @Package com.anlong.fileserver.fileserver
  * @company ShenZhen anlong Technology CO.,LTD.   
  * @author lixl   
  * @date 2013-9-3 下午4:40:46 
@@ -69,7 +67,7 @@ public class UploadServlet extends HttpServlet {
 			//优先mongoDB中判定索引  加快处理速度
 			if(MongoFileIndex.isExistFile(md5)){
 				/** 校验文件系统是否存在    */
-				String iopath = DownloadUtils.getFileIOPath(md5);
+				String iopath = DownloadUtils.getFileDownloadIOPath(md5);
 				String relativePath = MongoFileIndex.getFilePath(md5);
 				if(new File(iopath).exists()){
 					//下载路径=IP+相对路径   全部是/ 

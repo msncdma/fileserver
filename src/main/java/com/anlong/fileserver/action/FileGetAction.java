@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
-import com.anlong.fileserver.common.DownloadUtils;
 import com.anlong.fileserver.common.Utils;
+import com.anlong.fileserver.httppost.DownloadUtils;
 import com.anlong.fileserver.mongodb.MongoFileIndex;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
@@ -86,7 +86,7 @@ public class FileGetAction extends ActionSupport {
 				logger.error("文件索引值不存在，请重新上传！md5="+md5);
 				return Action.ERROR;
 			}
-			String temp = DownloadUtils.getFileIOPath(md5);
+			String temp = DownloadUtils.getFileDownloadIOPath(md5);
 			//如果为缩略图请求，则作替换处理
 			if(path.contains("thumb")){
 				temp = temp.replace("origin", "thumb");

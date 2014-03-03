@@ -7,7 +7,7 @@
 	<!-- 通用Action包 -->
 	<package name="Common" extends="struts-default" namespace="/Common">
 		
-		<action name="fileGet" class="com.anlong.fileserver.action.FileGetAction" method="fileGet">
+		<action name="fileGet" class="com.anlong.fileserver..action.FileGetAction" method="fileGet">
 			<result type="stream" name="success">
 				<param name="contentType">application/octet-stream</param>
 				<param name="inputName">inputStream</param>

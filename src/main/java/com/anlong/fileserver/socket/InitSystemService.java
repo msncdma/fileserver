@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 
 /**
  * @Title: InitSystemService.java 
- * @Package com.anlong.msg.socket
+ * @Package com.anlong.fileserver.socket
  * @company ShenZhen anlong Technology CO.,LTD.   
  * @author lixl   
  * @date 2013-10-23 上午9:18:10 

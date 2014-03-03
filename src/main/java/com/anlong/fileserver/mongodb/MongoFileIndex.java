@@ -1,5 +1,7 @@
 package com.anlong.fileserver.mongodb;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,7 @@ import com.mongodb.WriteResult;
 
 /**
  * @Title: MongoFileIndex.java 
- * @Package com.anlong.msg.mongodb
+ * @Package com.anlong.fileserver.mongodb
  * @company ShenZhen anlong Technology CO.,LTD.   
  * @author lixl   
  * @date 2013-9-10 上午11:02:00 

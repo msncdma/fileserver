@@ -1,7 +1,8 @@
 package com.anlong.fileserver.test.basetest;
+
 /**
  * @Title: ExA.java 
- * @Package com.anlong.msg.test
+ * @Package com.anlong.fileserver.test
  * @company ShenZhen anlong Technology CO.,LTD.   
  * @author lixl   
  * @date 2013-10-23 上午10:14:35 

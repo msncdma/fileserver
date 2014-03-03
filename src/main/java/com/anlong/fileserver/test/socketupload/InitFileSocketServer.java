@@ -13,9 +13,10 @@ import com.anlong.fileserver.common.Utils;
 
 
 
+
 /**
  * @Title: InitFileSocketServer.java 
- * @Package com.anlong.msg.test.socketupload
+ * @Package com.anlong.fileserver.test.socketupload
  * @company ShenZhen anlong Technology CO.,LTD.   
  * @author lixl   
  * @date 2014年1月15日 上午10:15:32 
