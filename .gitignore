@@ -19,7 +19,7 @@ syntax: glob
 *.old
 *.sql
 
-# eclipse conf file
+# eclipse conf file  重新导入的项目，注意文件是自动生成信息从哪来获取的？
 .settings
 .classpath
 .project
@@ -32,7 +32,7 @@ syntax: glob
 /.idea
 
 
-# building
+# building  注意先删除配置信息，然后新建测试目录
 bin
 target
 #build

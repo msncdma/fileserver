@@ -49,10 +49,10 @@ public class TestHttpUpload {
 	/**
 	 * 文件HTTP上传到文件服务器
 	 * 下载文件方法
-	 * http://192.168.2.189:8684/msgfileserver/DownloadServlet/相对路径
-	 * http://121.15.130.218:8684/msgfileserver/DownloadServlet?md5=08a8269da946ba76a49dadee74d4f1db
-	 * http://127.0.0.1:8780/msgfileserver/Common/fileGet.action?path=相对路径&fileName=快快.png
-	 * http://121.15.130.218:8684/msgfileserver/Common/fileGet.action?path=mcdownload1/group-chat-pic/origin/2014/2014-01-13/08a8269da946ba76a49dadee74d4f1db&fileName=20140115112820107676387.jpg
+	 * http://192.168.2.189:8684/fileserver/DownloadServlet/相对路径
+	 * http://121.15.130.218:8684/fileserver/DownloadServlet?md5=08a8269da946ba76a49dadee74d4f1db
+	 * http://127.0.0.1:8780/fileserver/Common/fileGet.action?path=相对路径&fileName=快快.png
+	 * http://121.15.130.218:8684/fileserver/Common/fileGet.action?path=mcdownload1/group-chat-pic/origin/2014/2014-01-13/08a8269da946ba76a49dadee74d4f1db&fileName=20140115112820107676387.jpg
 	 * @param type
 	 * @param f
 	 * @return
@@ -63,7 +63,7 @@ public class TestHttpUpload {
 			//http://121.15.130.218:8684/
 			//http://192.168.0.221:8780/
 			//http://192.168.0.228:8780/
-			PostMethod method = new PostMethod("http://192.168.2.189:8684/msgfileserver/UploadServlet");
+			PostMethod method = new PostMethod("http://192.168.2.189:8684/fileserver/UploadServlet");
 
 			try {
 				// 设置字符串参数

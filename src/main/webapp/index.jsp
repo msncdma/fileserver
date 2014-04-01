@@ -79,6 +79,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<br>
 		 -->
-		版本号:File Version: 1.0.0.0
+		git仓库:阿里云218
+		maven:3.1.1
+		tomcat:7.52
+		jdk:1.7.0_21
+		项目版本号:File Version: 1.0.0.0
   </body>
 </html>
